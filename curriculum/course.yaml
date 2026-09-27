@@ -1,0 +1,57 @@
+# yaml-language-server: $schema=../schema/course.schema.json
+# Course definition — the entry point the app loads.
+# Everything in curriculum/ is SHAREABLE: no student names, no grades, no PII, ever.
+# Student data lives only in the school's local database (see docs/DEVELOPMENT_PLAN.md).
+
+course:
+  id: ap-cybersecurity
+  title: AP Cybersecurity
+  frameworks: [ap-cybersecurity]          # folders under curriculum/frameworks/
+  graph: graph/                           # every *.yaml in this folder is loaded
+  plans: plans/
+
+# One scale for every judgment in the course. Mirrors "consumer -> user -> creator":
+# the top level is reserved for GENERATING new applications, not just executing steps.
+mastery_scale:
+  - level: 1
+    id: emerging
+    label: Emerging
+    descriptor: Recognizes the idea or tool; needs support to use it.
+  - level: 2
+    id: developing
+    label: Developing
+    descriptor: Explains it and uses it with guidance or a worked example.
+  - level: 3
+    id: proficient
+    label: Proficient
+    descriptor: Applies it independently to a familiar kind of problem.
+  - level: 4
+    id: advanced
+    label: Advanced
+    descriptor: Applies it to a new situation, combines it with other ideas, and justifies the trade-offs.
+
+# How evidence becomes a recorded level. These are POLICY, enforced by the app,
+# and the teacher is always the one who records the judgment.
+judgment_policy:
+  unit_of_judgment: learning_objective    # also allowed on graph skills, which roll up via `aligns`
+  rule: highest-credible-evidence         # early struggle never drags down later mastery
+  judge: teacher                          # the app suggests; a human decides and can override
+  evidence_context: [independent, peer-supported, teacher-supported]  # recorded, not penalized
+  prerequisite_threshold: 2               # "developing" satisfies a `requires` edge by default
+
+# Grade export is a separate, transparent calculation over judgments.
+# Values, not math: every weight here is the teacher's choice and is shown to students.
+grading:
+  status: draft
+  mastery_weight: 1.0
+  growth_credit:
+    mode: raise-only       # growth can only ADD to a grade, never subtract;
+                           # there is no benefit to sandbagging an early attempt,
+                           # and a student who started advanced loses nothing.
+    note: Formula to be designed after one semester of real evidence.
+
+# Lighthouses: the high-visibility goals a student can see from day one and choose
+# to steer toward. The source conversation calls for "the 16 primary learning targets."
+# TODO(teacher): the CSV has 5 units / 24 topics / 79 objectives — none is 16.
+# List the 16 here once identified (as ap:<id> references or graph node ids).
+lighthouses: []

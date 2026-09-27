@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "course.schema.json",
+  "title": "Course definition",
+  "type": "object",
+  "required": ["course", "mastery_scale"],
+  "properties": {
+    "course": { "type": "object", "required": ["id", "title", "frameworks"] },
+    "mastery_scale": {
+      "type": "array", "minItems": 2,
+      "items": { "type": "object", "required": ["level", "id", "label", "descriptor"] }
+    },
+    "judgment_policy": { "type": "object" },
+    "grading": { "type": "object" },
+    "lighthouses": { "type": "array", "items": { "type": "string" } }
+  }
+}

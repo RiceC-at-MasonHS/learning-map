@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "framework.schema.json",
+  "title": "Framework metadata",
+  "type": "object",
+  "required": ["framework", "levels"],
+  "additionalProperties": false,
+  "properties": {
+    "framework": {
+      "type": "object", "required": ["id", "prefix", "title"],
+      "properties": {
+        "id": { "type": "string" }, "prefix": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "title": { "type": "string" }, "publisher": { "type": "string" },
+        "source_document": { "type": "string" }, "edition": { "type": "string" },
+        "license_note": { "type": "string" }
+      }
+    },
+    "levels": {
+      "type": "array",
+      "items": { "type": "object", "required": ["id", "zoom"],
+        "properties": { "id": { "type": "string" }, "zoom": { "type": "integer" }, "assessable": { "type": "boolean" } } }
+    },
+    "demands": { "type": "object" },
+    "layers": { "type": "array", "items": { "type": "object", "required": ["id", "unit"] } },
+    "threads": {
+      "type": "array",
+      "items": { "type": "object", "required": ["id", "title", "objectives"],
+        "properties": { "id": { "type": "string" }, "title": { "type": "string" },
+          "foundation": { "type": "string" }, "objectives": { "type": "array", "items": { "type": "string" } } } }
+    }
+  }
+}

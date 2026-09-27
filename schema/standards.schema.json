@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "standards.schema.json",
+  "title": "Framework standards (generated)",
+  "type": "object",
+  "required": ["framework", "standards"],
+  "additionalProperties": false,
+  "properties": {
+    "framework": { "type": "string" },
+    "standards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "level", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[0-9A-Za-z]+(\\.[0-9A-Za-z]+)*$" },
+          "level": { "type": "string" },
+          "parent": { "type": "string" },
+          "title": { "type": "string" },
+          "summary": { "type": "string" },
+          "text": { "type": "string" },
+          "status": { "enum": ["official", "paraphrase", "draft"] },
+          "verb": { "type": "string" },
+          "demand": { "enum": ["recognize", "explain", "decide", "perform", "unknown"] }
+        },
+        "anyOf": [ { "required": ["title"] }, { "required": ["text"] } ]
+      }
+    }
+  }
+}

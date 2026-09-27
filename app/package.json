@@ -1,0 +1,32 @@
+{
+  "name": "learning-map",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "generate": "cd .. && .venv/bin/python tools/build_graph_json.py",
+    "layout": "node ../tools/layout.mjs"
+  },
+  "dependencies": {
+    "d3": "^7.9.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@dagrejs/dagre": "^1.1.4",
+    "@types/d3": "^7.4.3",
+    "@types/node": "^26.6.3",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "cytoscape": "^3.34.3",
+    "cytoscape-cola": "^2.5.1",
+    "cytoscape-cola": "^2.5.1",
+    "cytoscape-elk": "^2.3.0",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.4"
+  }
+}

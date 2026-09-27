@@ -1,0 +1,17 @@
+# Student data never enters this repo
+local/
+*.sqlite
+*.sqlite3
+*.db
+.env
+node_modules/
+__pycache__/
+.DS_Store
+.venv/
+app/dist/
+# generated at build time — not committed
+app/public/graph-data.json
+# TypeScript incremental build cache
+*.tsbuildinfo
+# screenshots (working notes, not repo content)
+Screenshot_*.png

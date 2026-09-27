@@ -1,0 +1,326 @@
+{
+  "x-field-tour": {
+    "x": 2245,
+    "y": -229
+  },
+  "x-wsl-install": {
+    "x": 419,
+    "y": -764
+  },
+  "x-terminal-scavenger": {
+    "x": -40,
+    "y": -567
+  },
+  "x-phishing-sort": {
+    "x": 1803,
+    "y": 77
+  },
+  "x-git-first-repo": {
+    "x": -463,
+    "y": -670
+  },
+  "x-permissions-lab": {
+    "x": -463,
+    "y": -406
+  },
+  "x-hash-tamper": {
+    "x": -537,
+    "y": -950
+  },
+  "x-auth-log-hunt": {
+    "x": -270,
+    "y": 531
+  },
+  "x-first-container": {
+    "x": -181,
+    "y": -165
+  },
+  "x-physical-risk-audit": {
+    "x": 2046,
+    "y": 40
+  },
+  "x-segmented-network": {
+    "x": -242,
+    "y": 77
+  },
+  "x-sqli-break-fix": {
+    "x": 12,
+    "y": 504
+  },
+  "x-adversary-cards": {
+    "x": 1936,
+    "y": -101
+  },
+  "x-crack-and-defend": {
+    "x": -463,
+    "y": -1124
+  },
+  "x-wireless-clinic": {
+    "x": -833,
+    "y": -3
+  },
+  "x-ai-both-sides": {
+    "x": -2219,
+    "y": -138
+  },
+  "x-social-engineering-clinic": {
+    "x": 1997,
+    "y": -307
+  },
+  "x-attack-lifecycle-map": {
+    "x": -430,
+    "y": 1052
+  },
+  "x-risk-framework": {
+    "x": -51,
+    "y": 951
+  },
+  "x-physical-detection": {
+    "x": 170,
+    "y": 1007
+  },
+  "x-packet-safari": {
+    "x": -129,
+    "y": 428
+  },
+  "x-detection-tradeoffs": {
+    "x": 311,
+    "y": 868
+  },
+  "x-malware-triage": {
+    "x": 131,
+    "y": -963
+  },
+  "x-harden-a-box": {
+    "x": -684,
+    "y": -413
+  },
+  "x-classify-and-lock": {
+    "x": -322,
+    "y": -282
+  },
+  "x-crypto-messaging": {
+    "x": -604,
+    "y": -1092
+  },
+  "x-ssh-setup": {
+    "x": -383,
+    "y": -1641
+  },
+  "x-secure-design-review": {
+    "x": -793,
+    "y": 138
+  },
+  "x-detection-capstone": {
+    "x": -192,
+    "y": 770
+  },
+  "wsl-setup": {
+    "x": 560,
+    "y": -697
+  },
+  "terminal-navigation": {
+    "x": 125,
+    "y": -607
+  },
+  "terminal-files": {
+    "x": -322,
+    "y": -490
+  },
+  "pipes-and-filters": {
+    "x": -131,
+    "y": 287
+  },
+  "linux-permissions": {
+    "x": -181,
+    "y": -373
+  },
+  "linux-users": {
+    "x": -40,
+    "y": -405
+  },
+  "git-basics": {
+    "x": -181,
+    "y": -624
+  },
+  "github-collab": {
+    "x": -322,
+    "y": -739
+  },
+  "containers-run": {
+    "x": -40,
+    "y": -242
+  },
+  "compose-labs": {
+    "x": 40,
+    "y": 102
+  },
+  "container-networks": {
+    "x": 181,
+    "y": 72
+  },
+  "host-firewall": {
+    "x": -604,
+    "y": -272
+  },
+  "network-firewall": {
+    "x": -101,
+    "y": -18
+  },
+  "hashing": {
+    "x": -383,
+    "y": -983
+  },
+  "symmetric-crypto": {
+    "x": -242,
+    "y": -1000
+  },
+  "asymmetric-crypto": {
+    "x": -322,
+    "y": -1226
+  },
+  "ssh-keys": {
+    "x": -242,
+    "y": -1552
+  },
+  "log-reading": {
+    "x": -51,
+    "y": 645
+  },
+  "sql-basics": {
+    "x": -272,
+    "y": 390
+  },
+  "input-sanitization": {
+    "x": -411,
+    "y": 543
+  },
+  "adversary-profiling": {
+    "x": 2077,
+    "y": -166
+  },
+  "attack-lifecycle": {
+    "x": -289,
+    "y": 1052
+  },
+  "risk-assessment": {
+    "x": 29,
+    "y": 1092
+  },
+  "security-controls": {
+    "x": -192,
+    "y": 911
+  },
+  "threat-modeling": {
+    "x": 109,
+    "y": 866
+  },
+  "data-classification": {
+    "x": -745,
+    "y": -272
+  },
+  "secure-by-design": {
+    "x": -652,
+    "y": 138
+  },
+  "malware-triage": {
+    "x": -10,
+    "y": -850
+  },
+  "device-hardening": {
+    "x": 101,
+    "y": -386
+  },
+  "network-analysis": {
+    "x": 153,
+    "y": 419
+  },
+  "wireless-security": {
+    "x": -688,
+    "y": -106
+  },
+  "detection-design": {
+    "x": -333,
+    "y": 848
+  },
+  "ai-security": {
+    "x": -2078,
+    "y": -138
+  },
+  "linux-foundations": {
+    "x": 119,
+    "y": -807
+  },
+  "version-control": {
+    "x": -251,
+    "y": -849
+  },
+  "lab-infrastructure": {
+    "x": -253,
+    "y": -382
+  },
+  "crypto-in-practice": {
+    "x": -312,
+    "y": -1662
+  },
+  "detection-practice": {
+    "x": -90,
+    "y": -960
+  },
+  "appsec-practice": {
+    "x": -341,
+    "y": 280
+  },
+  "security-reasoning": {
+    "x": 0,
+    "y": -382
+  },
+  "t-navigation-cmds": {
+    "x": 125,
+    "y": -557
+  },
+  "t-find-grep": {
+    "x": -322,
+    "y": -440
+  },
+  "t-pipes": {
+    "x": -131,
+    "y": 337
+  },
+  "t-chmod-chown": {
+    "x": -181,
+    "y": -323
+  },
+  "t-git-core": {
+    "x": -181,
+    "y": -574
+  },
+  "t-docker-run": {
+    "x": -40,
+    "y": -192
+  },
+  "t-compose": {
+    "x": 40,
+    "y": 152
+  },
+  "t-ufw": {
+    "x": -604,
+    "y": -222
+  },
+  "t-sha256sum": {
+    "x": -383,
+    "y": -933
+  },
+  "t-openssl-enc": {
+    "x": -242,
+    "y": -950
+  },
+  "t-gpg": {
+    "x": -322,
+    "y": -1176
+  },
+  "t-ssh-keygen": {
+    "x": -242,
+    "y": -1502
+  }
+}

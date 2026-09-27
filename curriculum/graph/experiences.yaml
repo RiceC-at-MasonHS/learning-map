@@ -1,0 +1,336 @@
+# yaml-language-server: $schema=../../schema/graph.schema.json
+#
+# Experiences are the things students DO. They are where evidence comes from.
+# One experience usually practices several skills, and one skill is practiced by
+# several experiences — that many-to-many overlap IS the reinforcement web.
+#
+# purpose (the three kinds of learning experience from the design conversation):
+#   survey   breadth — show what is possible in the field
+#   deepen   depth — deliberate practice, close reading, worked examples
+#   connect  application — combine ideas to make or defend something new
+#
+# format: lab | discussion | demo | reading | project | ctf | presentation | activity
+# extensions: stretch goals INSIDE a shared experience, so an advanced student goes
+#             deeper without leaving the class's shared moment.
+# requires_infra: ids from a plan's `infrastructure` list (e.g. a running Docker host).
+#             If the infra isn't up, the experience shows as "waiting on lab", not "locked".
+
+nodes:
+  - id: x-field-tour
+    kind: experience
+    format: discussion
+    purpose: survey
+    title: What do cybersecurity people actually do?
+    duration_min: 50
+    aligns: [ap:1.3.A, ap:2.1.C]
+    evidence: Exit ticket — one role or attack that surprised you, and why.
+
+  - id: x-wsl-install
+    kind: experience
+    format: lab
+    purpose: deepen
+    title: Build your lab — install WSL
+    duration_min: 50
+    practices: [wsl-setup]
+    evidence: Screenshot of `uname -a` in your own shell.
+
+  - id: x-terminal-scavenger
+    kind: experience
+    format: lab
+    purpose: deepen
+    title: Terminal scavenger hunt
+    duration_min: 100
+    practices: [terminal-navigation, terminal-files]
+    extensions:
+      - Solve every clue in a single pipeline.
+      - Write a shell script that solves the hunt automatically.
+      - Design three new clues for next year's class.
+    evidence: Command history (`history > hunt.txt`) with the flags found.
+
+  - id: x-phishing-sort
+    kind: experience
+    format: activity
+    purpose: deepen
+    title: Phish or legit? Sorting real messages
+    duration_min: 50
+    aligns: [ap:1.1.A, ap:1.1.B, ap:1.1.C]
+    evidence: For three messages, name the tactic and the psychological lever it pulls.
+
+  - id: x-git-first-repo
+    kind: experience
+    format: lab
+    purpose: deepen
+    title: Your lab notebook is a git repo
+    duration_min: 100
+    practices: [git-basics, github-collab]
+    extensions:
+      - Resolve a deliberately planted merge conflict.
+      - Sign your commits with an SSH key.
+    evidence: Link to the repo with at least five meaningful commits.
+
+  - id: x-permissions-lab
+    kind: experience
+    format: lab
+    purpose: deepen
+    title: Who can read the grade file?
+    duration_min: 100
+    practices: [linux-permissions, linux-users]
+    extensions:
+      - Explain which access control model (DAC/MAC/RBAC) your setup uses, and where it falls short.
+    evidence: Before/after `ls -l` output and a paragraph justifying each permission choice.
+
+  - id: x-hash-tamper
+    kind: experience
+    format: lab
+    purpose: deepen
+    title: Was this download tampered with?
+    duration_min: 50
+    practices: [hashing]
+    evidence: Which of five files was altered, and how you proved it.
+
+  - id: x-auth-log-hunt
+    kind: experience
+    format: lab
+    purpose: connect
+    title: Hunt a brute-force attack in auth.log
+    duration_min: 100
+    practices: [pipes-and-filters, log-reading]
+    aligns: [ap:1.2.A, ap:4.4.A]
+    extensions:
+      - Write a one-line pipeline that ranks attacking IPs.
+      - Recommend a login setting that would have stopped this attack, and its cost to users.
+    evidence: Timeline of the attack with supporting log lines.
+
+  - id: x-first-container
+    kind: experience
+    format: lab
+    purpose: deepen
+    title: A computer inside your computer
+    duration_min: 100
+    practices: [containers-run]
+    requires_infra: [container-runtime]
+    evidence: A container you started, modified, and explained.
+
+  - id: x-physical-risk-audit
+    kind: experience
+    format: project
+    purpose: connect
+    title: Assess our building's physical security
+    duration_min: 150
+    aligns: [ap:2.1.D, ap:2.2.A, ap:2.2.C, ap:2.3.B]
+    evidence: Risk register — three risks, likelihood, impact, and a mitigation for each.
+
+  - id: x-segmented-network
+    kind: experience
+    format: lab
+    purpose: connect
+    title: Build a segmented network and defend it
+    duration_min: 150
+    practices: [compose-labs, container-networks, network-firewall]
+    requires_infra: [container-runtime]
+    aligns: [ap:3.3.B, ap:3.4.C]
+    evidence: Compose file, network diagram, and a justification of each firewall rule.
+
+  - id: x-sqli-break-fix
+    kind: experience
+    format: lab
+    purpose: connect
+    title: Break and fix a login form
+    duration_min: 150
+    practices: [sql-basics, input-sanitization, log-reading]
+    requires_infra: [vulnerable-web-app]
+    aligns: [ap:5.6.E]
+    evidence: The injection that worked, the log lines that reveal it, and the patched code.
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # Added experiences to close coverage gaps. Kept high-school-appropriate:
+  # short discussions and activities for "recognize/explain" objectives; labs
+  # (with resettable containers) for "apply/configure" objectives.
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  # ─── Unit 1: threats ────────────────────────────────────────────────────────
+  - id: x-adversary-cards
+    kind: experience
+    format: activity
+    purpose: survey
+    title: Know your adversary
+    duration_min: 50
+    practices: [adversary-profiling]
+    aligns: [ap:1.3.A, ap:2.1.B]
+    evidence: Given six real incidents, match each to an adversary type and likely motive.
+
+  - id: x-crack-and-defend
+    kind: experience
+    format: lab
+    purpose: connect
+    title: Crack a weak password, then make it uncrackable
+    duration_min: 100
+    practices: [hashing]
+    aligns: [ap:1.2.B, ap:1.2.C, ap:4.2.A, ap:4.2.B, ap:4.2.C]
+    extensions:
+      - Show how a salt changes the attack.
+      - Compare the cost of cracking with and without MFA in place.
+    evidence: Time-to-crack for three passwords, and a written case for the login policy you'd set.
+
+  - id: x-wireless-clinic
+    kind: experience
+    format: demo
+    purpose: deepen
+    title: Wi-Fi attacks and how to shut them down
+    duration_min: 50
+    practices: [wireless-security]
+    aligns: [ap:1.3.B, ap:1.3.C, ap:3.2.A, ap:3.2.B]
+    evidence: A home/school Wi-Fi hardening checklist you can defend line by line.
+
+  - id: x-ai-both-sides
+    kind: experience
+    format: discussion
+    purpose: survey
+    title: AI on both sides of the fight
+    duration_min: 100
+    practices: [ai-security]
+    aligns: [ap:1.4.A, ap:1.4.B, ap:1.5.A, ap:1.5.B, ap:3.5.B]
+    evidence: One attacker use and one defender use of AI, each with why speed/scale is the real change.
+
+  # ─── Unit 2: principles, risk, physical ─────────────────────────────────────
+  - id: x-social-engineering-clinic
+    kind: experience
+    format: activity
+    purpose: deepen
+    title: Spot the social-engineering attack
+    duration_min: 50
+    practices: [adversary-profiling]
+    aligns: [ap:2.1.A]
+    evidence: Label the tactic in five scenarios and name the tell that gives each away.
+
+  - id: x-attack-lifecycle-map
+    kind: experience
+    format: activity
+    purpose: deepen
+    title: Map an attack, phase by phase
+    duration_min: 50
+    practices: [attack-lifecycle]
+    aligns: [ap:2.1.C]
+    evidence: A real breach broken into its phases, with the defense that could have stopped each.
+
+  - id: x-risk-framework
+    kind: experience
+    format: reading
+    purpose: deepen
+    title: How risk gets measured and managed
+    duration_min: 50
+    practices: [risk-assessment, security-controls]
+    aligns: [ap:2.1.D, ap:2.1.E, ap:2.1.F, ap:2.1.G]
+    evidence: In your words, why one strong control is weaker than several layered ones.
+
+  - id: x-physical-detection
+    kind: experience
+    format: activity
+    purpose: connect
+    title: Catch a physical intruder
+    duration_min: 100
+    aligns: [ap:2.2.B, ap:2.3.A, ap:2.4.A, ap:2.4.B, ap:2.4.C]
+    evidence: A floor plan marked with detection controls and a justification for each placement.
+
+  # ─── Unit 3: network ────────────────────────────────────────────────────────
+  - id: x-packet-safari
+    kind: experience
+    format: lab
+    purpose: deepen
+    title: Packet safari — what's really on the wire
+    duration_min: 100
+    practices: [network-analysis, pipes-and-filters]
+    aligns: [ap:3.1.A, ap:3.1.B, ap:3.1.C]
+    requires_infra: [container-runtime]
+    extensions:
+      - Identify a scan vs. normal traffic from the capture alone.
+    evidence: Three attack signatures you found in a capture, and the risk each represents.
+
+  - id: x-detection-tradeoffs
+    kind: experience
+    format: activity
+    purpose: connect
+    title: Pick the right alarm
+    duration_min: 50
+    practices: [detection-design]
+    aligns: [ap:3.5.A, ap:3.5.C, ap:3.5.D]
+    evidence: For a given network, choose a detection method and argue its cost vs. coverage.
+
+  # ─── Unit 4: device ─────────────────────────────────────────────────────────
+  - id: x-malware-triage
+    kind: experience
+    format: lab
+    purpose: deepen
+    title: Is this device infected?
+    duration_min: 100
+    practices: [malware-triage]
+    aligns: [ap:4.1.A, ap:4.1.B, ap:4.1.C, ap:4.1.D]
+    requires_infra: [container-runtime]
+    evidence: Classify the malware from its behavior and document the risk to the device.
+
+  - id: x-harden-a-box
+    kind: experience
+    format: lab
+    purpose: connect
+    title: Harden a box against a checklist
+    duration_min: 150
+    practices: [device-hardening, host-firewall]
+    aligns: [ap:4.3.A, ap:4.3.B, ap:4.3.C, ap:4.3.D, ap:4.4.B, ap:4.4.C]
+    requires_infra: [container-runtime]
+    extensions:
+      - Have a partner attack your box; log what your controls caught.
+    evidence: Before/after hardening report scored against the checklist.
+
+  # ─── Unit 5: application & data ──────────────────────────────────────────────
+  - id: x-classify-and-lock
+    kind: experience
+    format: lab
+    purpose: connect
+    title: Classify data, then lock it down
+    duration_min: 100
+    practices: [data-classification, linux-permissions]
+    aligns: [ap:5.1.A, ap:5.1.C, ap:5.2.A, ap:5.2.B, ap:5.2.C, ap:5.2.D]
+    evidence: A data inventory with a sensitivity label and an access rule for each item.
+
+  - id: x-crypto-messaging
+    kind: experience
+    format: lab
+    purpose: connect
+    title: Send a message nobody else can read
+    duration_min: 150
+    practices: [symmetric-crypto, asymmetric-crypto, hashing]
+    aligns: [ap:5.3.A, ap:5.3.B, ap:5.4.A, ap:5.4.B, ap:5.4.C]
+    extensions:
+      - Explain why you'd never share the symmetric key the way you share the public key.
+      - Sign a message so a partner can prove it came from you.
+    evidence: An encrypted message a partner decrypts, plus your explanation of which key did what.
+
+  - id: x-ssh-setup
+    kind: experience
+    format: lab
+    purpose: deepen
+    title: Log in without a password (safely)
+    duration_min: 50
+    practices: [ssh-keys]
+    aligns: [ap:4.2.C, ap:1.2.C]
+    evidence: A working key-based SSH login and a note on why it beats a password.
+
+  - id: x-secure-design-review
+    kind: experience
+    format: activity
+    purpose: connect
+    title: Design review — find the flaw before the attacker does
+    duration_min: 50
+    practices: [secure-by-design]
+    aligns: [ap:5.5.A]
+    evidence: Two secure-by-design violations in a sample app and the fix for each.
+
+  - id: x-detection-capstone
+    kind: experience
+    format: project
+    purpose: connect
+    title: Build a detection story for your own system
+    duration_min: 150
+    practices: [detection-design, log-reading]
+    aligns: [ap:5.6.A, ap:5.6.B, ap:5.6.C]
+    evidence: For a system you built this year, how you'd detect an attack and how you'd know it worked.

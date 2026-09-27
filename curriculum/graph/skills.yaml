@@ -1,0 +1,364 @@
+# yaml-language-server: $schema=../../schema/graph.schema.json
+#
+# The teacher's own map of the field. Unlike the framework, this is YOURS to edit.
+#
+# kind (= zoom level):
+#   domain     zoomed out   — a region of the map ("Working in Linux")
+#   skill      lesson goal  — "what is the goal of this lesson?"
+#   technique  zoomed in    — "what are we actually typing today?"
+#   (experiences — the things students DO — live in experiences.yaml)
+#
+# Edges live on the node that owns them (one source of truth; the app derives an edge index):
+#   requires   hard prerequisite: teach this first. Gates the student's suggested path,
+#              but a teacher can always override (e.g. a student who already knows it).
+#   builds_on  soft: helpful background, never blocks.
+#   relates    a connection worth naming out loud (spiral / cross-link). Undirected.
+#   aligns     crosswalk to external standards, as <prefix>:<id>  e.g. ap:5.2.D
+
+nodes:
+  # ─── Domains ──────────────────────────────────────────────────────────────
+  - id: linux-foundations
+    kind: domain
+    title: Working in Linux
+
+  - id: version-control
+    kind: domain
+    title: Version control & collaboration
+
+  - id: lab-infrastructure
+    kind: domain
+    title: Containers & lab infrastructure
+
+  - id: crypto-in-practice
+    kind: domain
+    title: Cryptography in practice
+
+  - id: detection-practice
+    kind: domain
+    title: Detection & log analysis
+
+  - id: appsec-practice
+    kind: domain
+    title: Application & data security in practice
+
+  # ─── Linux ────────────────────────────────────────────────────────────────
+  - id: wsl-setup
+    kind: skill
+    parent: linux-foundations
+    title: Set up a Linux environment
+    summary: Install WSL (or use a Linux VM) and open a shell you control.
+
+  - id: terminal-navigation
+    kind: skill
+    parent: linux-foundations
+    title: Navigate the filesystem from a terminal
+    requires: [wsl-setup]
+
+  - id: terminal-files
+    kind: skill
+    parent: linux-foundations
+    title: Create, read, move, and search files
+    requires: [terminal-navigation]
+
+  - id: pipes-and-filters
+    kind: skill
+    parent: linux-foundations
+    title: Chain commands with pipes and filter text
+    requires: [terminal-files]
+    relates: [log-reading]
+
+  - id: linux-permissions
+    kind: skill
+    parent: linux-foundations
+    title: Read and set file permissions and ownership
+    requires: [terminal-files]
+    aligns: [ap:5.2.C, ap:5.2.D]
+
+  - id: linux-users
+    kind: skill
+    parent: linux-foundations
+    title: Manage users, groups, and login settings
+    requires: [linux-permissions]
+    aligns: [ap:5.2.D, ap:4.2.D]
+
+  # ─── Version control ──────────────────────────────────────────────────────
+  - id: git-basics
+    kind: skill
+    parent: version-control
+    title: Track changes with git
+    requires: [terminal-files]
+
+  - id: github-collab
+    kind: skill
+    parent: version-control
+    title: Collaborate through GitHub
+    requires: [git-basics]
+    relates: [ssh-keys]           # GitHub is where many students first meet key pairs
+
+  # ─── Containers ───────────────────────────────────────────────────────────
+  - id: containers-run
+    kind: skill
+    parent: lab-infrastructure
+    title: Run and inspect containers
+    requires: [terminal-files, git-basics]   # labs are distributed as git repos
+
+  - id: compose-labs
+    kind: skill
+    parent: lab-infrastructure
+    title: Stand up a multi-container lab
+    requires: [containers-run]
+
+  - id: container-networks
+    kind: skill
+    parent: lab-infrastructure
+    title: Segment services with container networks
+    requires: [compose-labs]
+    aligns: [ap:3.3.A, ap:3.3.B]
+
+  - id: host-firewall
+    kind: skill
+    parent: lab-infrastructure
+    title: Configure a host-based firewall
+    requires: [terminal-files]
+    aligns: [ap:4.3.D]
+
+  - id: network-firewall
+    kind: skill
+    parent: lab-infrastructure
+    title: Write a network firewall ruleset
+    requires: [container-networks, host-firewall]
+    aligns: [ap:3.4.A, ap:3.4.B, ap:3.4.C, ap:3.4.D]
+
+  # ─── Crypto ───────────────────────────────────────────────────────────────
+  - id: hashing
+    kind: skill
+    parent: crypto-in-practice
+    title: Hash files and verify integrity
+    requires: [terminal-files]
+    aligns: [ap:5.6.D, ap:4.2.A]
+
+  - id: symmetric-crypto
+    kind: skill
+    parent: crypto-in-practice
+    title: Encrypt and decrypt with a shared key
+    requires: [terminal-files]
+    aligns: [ap:5.3.A, ap:5.3.B]
+
+  - id: asymmetric-crypto
+    kind: skill
+    parent: crypto-in-practice
+    title: Use public/private key pairs
+    requires: [symmetric-crypto]
+    aligns: [ap:5.4.A, ap:5.4.B, ap:5.4.C]
+
+  - id: ssh-keys
+    kind: skill
+    parent: crypto-in-practice
+    title: Authenticate with SSH keys
+    requires: [asymmetric-crypto]
+    aligns: [ap:4.2.C, ap:1.2.C]
+
+  # ─── Detection ────────────────────────────────────────────────────────────
+  - id: log-reading
+    kind: skill
+    parent: detection-practice
+    title: Find indicators of attack in log files
+    requires: [pipes-and-filters]
+    aligns: [ap:3.5.E, ap:4.4.D, ap:5.6.E]
+
+  # ─── AppSec ───────────────────────────────────────────────────────────────
+  - id: sql-basics
+    kind: skill
+    parent: appsec-practice
+    title: Query a database with SQL
+    requires: [compose-labs]
+
+  - id: input-sanitization
+    kind: skill
+    parent: appsec-practice
+    title: Exploit and fix SQL injection
+    requires: [sql-basics]
+    aligns: [ap:5.1.B, ap:5.5.B]
+
+  # ─── Techniques (deep zoom) ───────────────────────────────────────────────
+  # Add these freely as tools evolve. `commands` is what students actually type.
+  - id: t-navigation-cmds
+    kind: technique
+    parent: terminal-navigation
+    title: pwd, ls, cd
+    commands: ["pwd", "ls -la", "cd ~", "cd .."]
+
+  - id: t-find-grep
+    kind: technique
+    parent: terminal-files
+    title: find and grep
+    commands: ["find . -name '*.log'", "grep -rn 'password' ."]
+
+  - id: t-pipes
+    kind: technique
+    parent: pipes-and-filters
+    title: Pipes, sort, uniq, cut
+    commands: ["cut -d' ' -f1 access.log | sort | uniq -c | sort -rn | head"]
+
+  - id: t-chmod-chown
+    kind: technique
+    parent: linux-permissions
+    title: chmod and chown
+    commands: ["chmod 640 notes.txt", "chown alice:staff notes.txt", "ls -l"]
+
+  - id: t-git-core
+    kind: technique
+    parent: git-basics
+    title: add, commit, log, diff
+    commands: ["git init", "git add .", "git commit -m 'msg'", "git log --oneline", "git diff"]
+
+  - id: t-docker-run
+    kind: technique
+    parent: containers-run
+    title: docker run / podman run
+    commands: ["docker run -it --rm ubuntu bash", "docker ps", "docker logs <id>"]
+    notes: Podman is a drop-in alternative (rootless by default); commands are near-identical.
+
+  - id: t-compose
+    kind: technique
+    parent: compose-labs
+    title: docker compose up/down
+    commands: ["docker compose up -d", "docker compose ps", "docker compose down -v"]
+
+  - id: t-ufw
+    kind: technique
+    parent: host-firewall
+    title: ufw
+    commands: ["sudo ufw default deny incoming", "sudo ufw allow 22/tcp", "sudo ufw status verbose"]
+
+  - id: t-sha256sum
+    kind: technique
+    parent: hashing
+    title: sha256sum
+    commands: ["sha256sum file.iso", "sha256sum -c SHA256SUMS"]
+
+  - id: t-openssl-enc
+    kind: technique
+    parent: symmetric-crypto
+    title: openssl enc (AES)
+    commands: ["openssl enc -aes-256-cbc -pbkdf2 -in msg.txt -out msg.enc"]
+
+  - id: t-gpg
+    kind: technique
+    parent: asymmetric-crypto
+    title: gpg key pairs
+    commands: ["gpg --full-generate-key", "gpg --encrypt -r bob msg.txt"]
+
+  - id: t-ssh-keygen
+    kind: technique
+    parent: ssh-keys
+    title: ssh-keygen
+    commands: ["ssh-keygen -t ed25519", "ssh-copy-id user@host"]
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # Added to close coverage gaps. These are high-school-appropriate and lean on
+  # tools students already have (a shell, a browser, a container or two).
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  # ─── Security reasoning (the analytical moves that recur every unit) ────────
+  - id: security-reasoning
+    kind: domain
+    title: Security reasoning & risk
+
+  - id: adversary-profiling
+    kind: skill
+    parent: security-reasoning
+    title: Profile adversaries and attacks
+    summary: Tell a script kiddie from a nation-state, and name an attack's type and goal.
+    aligns: [ap:1.3.A, ap:2.1.A, ap:2.1.B, ap:4.1.B]
+
+  - id: attack-lifecycle
+    kind: skill
+    parent: security-reasoning
+    title: Trace the phases of an attack
+    builds_on: [adversary-profiling]
+    aligns: [ap:2.1.C]
+
+  - id: risk-assessment
+    kind: skill
+    parent: security-reasoning
+    title: Assess and document risk
+    summary: Estimate likelihood and impact, and write a defensible risk statement.
+    aligns: [ap:2.1.D, ap:2.1.E]
+
+  - id: security-controls
+    kind: skill
+    parent: security-reasoning
+    title: Classify controls & argue defense in depth
+    summary: Sort controls into technical/physical/managerial and explain why layering matters.
+    builds_on: [risk-assessment]
+    aligns: [ap:2.1.F, ap:2.1.G]
+
+  - id: threat-modeling
+    kind: skill
+    parent: security-reasoning
+    title: Model threats to a system
+    requires: [risk-assessment, security-controls]
+
+  - id: data-classification
+    kind: skill
+    parent: security-reasoning
+    title: Classify data and choose access controls
+    summary: Match protection to data sensitivity; pick DAC/MAC/RBAC for a scenario.
+    aligns: [ap:5.2.A, ap:5.2.B, ap:5.2.C]
+
+  - id: secure-by-design
+    kind: skill
+    parent: security-reasoning
+    title: Apply secure-by-design principles
+    aligns: [ap:5.5.A, ap:5.5.B]
+
+  # ─── Concrete analysis skills (practiced by labs below) ────────────────────
+  - id: malware-triage
+    kind: skill
+    parent: detection-practice
+    title: Recognize malware behavior and device risk
+    requires: [terminal-files]
+    aligns: [ap:4.1.A, ap:4.1.C, ap:4.1.D]
+
+  - id: device-hardening
+    kind: skill
+    parent: detection-practice
+    title: Harden a device
+    summary: Updates, antimalware, host firewall, and least-privilege accounts.
+    requires: [linux-users]
+    builds_on: [host-firewall]
+    aligns: [ap:4.3.A, ap:4.3.B, ap:4.3.C, ap:4.3.D]
+
+  - id: network-analysis
+    kind: skill
+    parent: detection-practice
+    title: Read network traffic and spot attacks
+    summary: Capture packets, recognize common network attacks, and assess network risk.
+    requires: [pipes-and-filters]
+    aligns: [ap:3.1.A, ap:3.1.B, ap:3.1.C]
+
+  - id: wireless-security
+    kind: skill
+    parent: lab-infrastructure
+    title: Secure a wireless network
+    requires: [terminal-files]
+    aligns: [ap:1.3.B, ap:1.3.C, ap:3.2.A, ap:3.2.B]
+
+  - id: detection-design
+    kind: skill
+    parent: detection-practice
+    title: Choose and evaluate a detection method
+    summary: Given attacks and constraints, pick a detection control and judge its trade-offs.
+    requires: [log-reading]
+    aligns: [ap:3.5.A, ap:3.5.C, ap:3.5.D, ap:4.4.B, ap:4.4.C, ap:5.6.A, ap:5.6.B, ap:5.6.C]
+
+  - id: ai-security
+    kind: skill
+    parent: security-reasoning
+    title: Reason about AI on offense and defense
+    summary: How adversaries use AI to scale attacks, and how defenders use it to scale response.
+    aligns: [ap:1.4.A, ap:1.4.B, ap:1.5.A, ap:1.5.B, ap:3.5.B]
+
+  # ─── One more firewall alignment (types) onto the existing skill ───────────
+  # (network-firewall already covers 3.4.B/C/D; the types objective belongs here too)

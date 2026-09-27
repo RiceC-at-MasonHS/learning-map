@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "graph.schema.json",
+  "title": "Learning graph file (skills, techniques, experiences)",
+  "type": "object",
+  "required": ["nodes"],
+  "additionalProperties": false,
+  "$defs": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "standardRef": { "type": "string", "pattern": "^[a-z][a-z0-9-]*:[0-9A-Za-z.]+$" },
+    "slugList": { "type": "array", "items": { "$ref": "#/$defs/slug" }, "uniqueItems": true },
+    "refList": { "type": "array", "items": { "$ref": "#/$defs/standardRef" }, "uniqueItems": true }
+  },
+  "properties": {
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "title"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "$ref": "#/$defs/slug" },
+          "kind": { "enum": ["domain", "skill", "technique", "experience"] },
+          "title": { "type": "string", "minLength": 1 },
+          "summary": { "type": "string" },
+          "parent": { "$ref": "#/$defs/slug" },
+          "requires": { "$ref": "#/$defs/slugList" },
+          "builds_on": { "$ref": "#/$defs/slugList" },
+          "relates": { "$ref": "#/$defs/slugList" },
+          "aligns": { "$ref": "#/$defs/refList" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "commands": { "type": "array", "items": { "type": "string" } },
+          "notes": { "type": "string" },
+          "format": { "enum": ["lab", "discussion", "demo", "reading", "project", "ctf", "presentation", "activity"] },
+          "purpose": { "enum": ["survey", "deepen", "connect"] },
+          "duration_min": { "type": "integer", "minimum": 1 },
+          "practices": { "$ref": "#/$defs/slugList" },
+          "requires_infra": { "$ref": "#/$defs/slugList" },
+          "extensions": { "type": "array", "items": { "type": "string" } },
+          "evidence": { "type": "string" },
+          "rubric": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "emerging": { "type": "string" }, "developing": { "type": "string" },
+              "proficient": { "type": "string" }, "advanced": { "type": "string" }
+            }
+          }
+        },
+        "allOf": [
+          { "if": { "properties": { "kind": { "const": "experience" } } },
+            "then": { "required": ["format", "purpose"] },
+            "else": { "not": { "anyOf": [
+              { "required": ["format"] }, { "required": ["purpose"] }, { "required": ["practices"] },
+              { "required": ["requires_infra"] }, { "required": ["extensions"] } ] } } },
+          { "if": { "properties": { "kind": { "const": "technique" } } },
+            "then": { "required": ["parent"] } }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+# yaml-language-server: $schema=../../../schema/framework.schema.json
+# AP Cybersecurity — framework metadata (hand-authored).
+# The standards themselves live in standards.yaml (generated from the CSV).
+#
+# A "framework" is an EXTERNAL set of standards the teacher is accountable to.
+# It is read-only from the teacher's point of view: we align TO it, we don't edit it.
+# Other frameworks (Ohio CS standards, CSTA, NICE) would each get their own folder
+# with the same shape, so one skill can align to several frameworks at once.
+
+framework:
+  id: ap-cybersecurity
+  prefix: ap                       # references elsewhere look like  ap:3.4.D
+  title: AP Cybersecurity
+  publisher: College Board
+  source_document: Course and Exam Description
+  edition: "TODO"                  # which CED edition/year the CSV came from
+  license_note: >-
+    College Board publishes this curriculum for free classroom use, and comparable
+    free curricula exist (e.g. CYBER.ORG). Redistribution here is fine; keep this
+    file attributed to its source.
+
+# Zoom levels, top (zoomed out) to bottom (zoomed in).
+levels:
+  - id: unit
+    zoom: 1
+  - id: topic
+    zoom: 2
+  - id: learning_objective
+    zoom: 3
+    assessable: true               # mastery judgments are recorded at THIS level
+  - id: essential_knowledge
+    zoom: 4                        # reference detail; never graded directly
+
+# The first word of every learning objective tells you what kind of evidence it needs.
+# Useful for the coverage report: a `perform` objective covered only by readings
+# and discussions is under-covered, no matter how many experiences touch it.
+demands:
+  recognize: { verbs: [identify, describe], evidence: "quiz, sort, spot-the-attack, discussion" }
+  explain:   { verbs: [explain],            evidence: "written or spoken explanation, teach-back" }
+  decide:    { verbs: [determine, assess, evaluate], evidence: "scenario judgment with justification, risk write-up" }
+  perform:   { verbs: [configure, apply],   evidence: "hands-on lab artifact, config file, log analysis" }
+
+# Units 2-5 are the same argument repeated at four layers of defense in depth
+# (2.1.G). Naming the layers lets the map draw the course as a grid, and lets
+# the student view say "you did this at the physical layer; now the network layer."
+layers:
+  - { id: physical,         unit: "2" }
+  - { id: network,          unit: "3" }
+  - { id: device,           unit: "4" }
+  - { id: application-data, unit: "5" }
+
+# Threads = the same thinking move revisited across layers (Bruner's spiral).
+# Spiraling only works when the connection is made explicit, so these are data,
+# not something we hope students notice. Teacher-reviewed: edit freely.
+threads:
+  - id: exploit-vulnerabilities
+    title: How adversaries exploit vulnerabilities
+    objectives: [ap:2.2.B, ap:3.1.B, ap:4.1.C, ap:5.1.A]
+  - id: assess-risk
+    title: Assess and document risk
+    foundation: ap:2.1.D           # the risk assessment process, taught once
+    objectives: [ap:2.2.C, ap:3.1.C, ap:4.1.D, ap:5.1.C]
+  - id: managerial-controls
+    title: Managerial controls
+    foundation: ap:2.1.F
+    objectives: [ap:2.3.A, ap:3.2.A, ap:4.3.A, ap:5.2.B]
+  - id: configure-controls
+    title: Configure a technical control
+    objectives: [ap:3.2.B, ap:3.4.D, ap:4.2.D, ap:4.3.D, ap:5.2.D]
+  - id: detect-attacks
+    title: How attacks are detected
+    objectives: [ap:2.4.A, ap:3.5.A, ap:4.4.A, ap:5.6.A]
+  - id: choose-detection
+    title: Choose a detection control
+    objectives: [ap:2.4.B, ap:3.5.C, ap:4.4.B, ap:5.6.B]
+  - id: evaluate-detection
+    title: Evaluate a detection method
+    objectives: [ap:3.5.D, ap:4.4.C, ap:5.6.C]
+  - id: log-analysis
+    title: Find indicators of attack in logs
+    objectives: [ap:3.5.E, ap:4.4.D, ap:5.6.E]
+  - id: authentication
+    title: Authentication, from weak to strong
+    objectives: [ap:1.2.A, ap:1.2.B, ap:1.2.C, ap:4.2.A, ap:4.2.B, ap:4.2.C, ap:4.2.D]
+  - id: ai-in-security
+    title: AI on both sides
+    objectives: [ap:1.4.A, ap:1.4.B, ap:1.5.A, ap:1.5.B, ap:3.5.B]
+  - id: human-element
+    title: The human element
+    objectives: [ap:1.1.A, ap:1.1.B, ap:1.1.C, ap:2.1.A]
+  - id: adversaries
+    title: Who the adversaries are
+    objectives: [ap:1.3.A, ap:2.1.B]

@@ -1,0 +1,157 @@
+# yaml-language-server: $schema=../../schema/plan.schema.json
+#
+# A plan is the teacher's route through the map — the "workout plan."
+# It is an ORDERED list of steps, not a calendar. Dates belong to a specific
+# class section and live in the school's local database, because snow days,
+# block schedules, and two sections moving at different speeds are normal.
+#
+# sync: true    the whole class does this together (shared experience)
+# sync: false   students choose from `choices` (divergence), then regroup
+# reveals       clears fog of war when the step opens: standards (ap:...) or graph node ids.
+#               The plan's `initial_reveal` sets what everyone sees on day one.
+
+plan:
+  id: ap-cyber-starter
+  title: AP Cybersecurity — starter sequence (first ~9 weeks)
+  course: ap-cybersecurity
+  author: TODO
+  status: draft
+
+  initial_reveal:
+    standards_to_zoom: 1          # every unit is visible from day one: the lighthouses on the horizon
+    nodes: [linux-foundations]
+
+  infrastructure:
+    - id: container-runtime
+      title: Docker or Podman available on student machines or a lab host
+    - id: vulnerable-web-app
+      title: Resettable vulnerable web app container (e.g. per-student instance)
+      notes: Needs a reset procedure between class periods.
+
+  steps:
+    - id: s01-field
+      title: What is this field?
+      sync: true
+      experiences: [x-field-tour]
+      reveals: [ap:1, ap:2]
+
+    - id: s02-lab-setup
+      title: Build your lab
+      sync: true
+      experiences: [x-wsl-install, x-terminal-scavenger]
+      reveals: [terminal-navigation, terminal-files]
+
+    - id: s03-human-element
+      title: Humans are the soft target
+      sync: true
+      experiences: [x-phishing-sort]
+      reveals: [ap:1.1]
+
+    - id: s04-git
+      title: Your notebook is a repo
+      sync: true
+      experiences: [x-git-first-repo]
+      reveals: [version-control]
+
+    - id: s05-choose
+      title: Choose a trail
+      sync: false
+      choices: [x-permissions-lab, x-hash-tamper, x-auth-log-hunt]
+      min_choices: 1
+      reveals: [crypto-in-practice, detection-practice]
+      notes: Regroup at s06 — each trail reports back one thing the others should know.
+
+    - id: s06-risk
+      title: Risk is the core move
+      sync: true
+      experiences: [x-physical-risk-audit]
+      reveals: [ap:2.1, ap:2.2, ap:2.3]
+
+    - id: s07-containers
+      title: A computer inside your computer
+      sync: true
+      experiences: [x-first-container]
+      reveals: [lab-infrastructure]
+
+    - id: s08-adversaries
+      title: Know your enemy
+      sync: true
+      experiences: [x-adversary-cards, x-social-engineering-clinic]
+      reveals: [security-reasoning, ap:2.1]
+
+    - id: s09-risk
+      title: Risk is the core move
+      sync: true
+      experiences: [x-risk-framework, x-physical-risk-audit]
+      reveals: [ap:2.1, ap:2.2, ap:2.3]
+
+    - id: s10-physical-detection
+      title: Catch what gets past the walls
+      sync: true
+      experiences: [x-physical-detection, x-attack-lifecycle-map]
+      reveals: [ap:2.4]
+
+    - id: s11-containers
+      title: A computer inside your computer
+      sync: true
+      experiences: [x-first-container]
+      reveals: [lab-infrastructure]
+
+    - id: s12-auth
+      title: Passwords, and why they fail
+      sync: true
+      experiences: [x-crack-and-defend, x-ssh-setup]
+      reveals: [crypto-in-practice]
+      notes: >-
+        Spiral (thread: authentication): students met auth as an attack surface in s03;
+        here they build and defend it. The map should light the thread.
+
+    - id: s13-network-layer
+      title: The same argument, one layer down
+      sync: true
+      experiences: [x-packet-safari, x-segmented-network]
+      reveals: [ap:3]
+      notes: >-
+        Name the spiral out loud: students assessed physical risk in s09; now they assess
+        network risk (thread: assess-risk). The map should highlight the thread here.
+
+    - id: s14-network-choose
+      title: Choose a defense trail
+      sync: false
+      choices: [x-detection-tradeoffs, x-wireless-clinic, x-auth-log-hunt]
+      min_choices: 1
+      reveals: [detection-practice, ap:3.5]
+
+    - id: s15-devices
+      title: Down to the device
+      sync: true
+      experiences: [x-malware-triage, x-harden-a-box]
+      reveals: [ap:4]
+      notes: "Spiral: exploit-vulnerabilities and detect-attacks threads, now at the device layer."
+
+    - id: s16-crypto
+      title: Secrets that stay secret
+      sync: true
+      experiences: [x-hash-tamper, x-crypto-messaging]
+      reveals: [ap:5.3, ap:5.4]
+
+    - id: s17-data-and-apps
+      title: Protect the data and the app
+      sync: true
+      experiences: [x-classify-and-lock, x-sqli-break-fix, x-secure-design-review]
+      reveals: [ap:5]
+
+    - id: s18-ai
+      title: AI on both sides
+      sync: true
+      experiences: [x-ai-both-sides]
+      reveals: [ap:1.4, ap:1.5, ap:3.5]
+
+    - id: s19-capstone
+      title: Show what you can build
+      sync: true
+      experiences: [x-detection-capstone]
+      notes: >-
+        The capstone is where "consumer -> user -> creator" is visible: advanced (level 4)
+        shows up as generating a new application, not repeating a lab. Reserve time for
+        AP-exam review alongside.
